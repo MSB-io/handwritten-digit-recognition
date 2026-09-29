@@ -214,7 +214,7 @@ document.addEventListener('DOMContentLoaded', () => {
     ctx.fillRect(0, 0, canvas.width, canvas.height);
 
     ctx.save();
-    ctx.font = 'bold 180px "Plus Jakarta Sans", sans-serif';
+    ctx.font = 'bold 180px "Geist", -apple-system, sans-serif';
     ctx.fillStyle = '#ffffff';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
