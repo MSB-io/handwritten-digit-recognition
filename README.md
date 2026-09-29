@@ -3,7 +3,41 @@
 > **B.Tech Computer Science & Engineering (2024–28) — Semester V**  
 > **Course:** Machine Learning | **Institution:** ITM Skills University — School of Future Tech  
 > **Live Web Demo:** [https://msb-io.github.io/handwritten-digit-recognition/](https://msb-io.github.io/handwritten-digit-recognition/)  
-> **Full Research Notebook:** [`Case_Study_46_Handwritten_Digit_Recognition.ipynb`](Case_Study_46_Handwritten_Digit_Recognition.ipynb)
+> **Full Research Notebook:** [`notebooks/Case_Study_46_Handwritten_Digit_Recognition.ipynb`](notebooks/Case_Study_46_Handwritten_Digit_Recognition.ipynb)
+
+---
+
+## 📂 Project Architecture
+
+```
+handwritten-digit-recognition/
+├── docs/                                 # 🌐 Interactive Web Application (GitHub Pages)
+│   ├── index.html                        # Main UI dashboard with drawing canvas & analytics
+│   ├── style.css                         # Dark glassmorphic design system
+│   ├── app.js                            # Client-side ML inference, canvas preprocessing, PCA
+│   ├── model_data.js                     # In-browser model weights & PCA projection matrix
+│   └── assets/                           # High-res analytical charts & diagrams
+├── notebooks/                            # 📓 Academic Jupyter Notebooks
+│   └── Case_Study_46_Handwritten_Digit_Recognition.ipynb
+├── scripts/                              # 🐍 Python Pipeline & Training Scripts
+│   ├── train_and_export.py               # Model training, PCA fitting, 8-way comparative matrix
+│   ├── generate_assets.py                # Visualizations (scree plot, confusion matrix, bar charts)
+│   └── generate_notebook.py              # Automated research notebook generator
+├── models/                               # 💾 Serialized Models & Experiment Logs
+│   ├── knn_pca.joblib                    # Best performing model (97.50% test acc)
+│   ├── logistic_regression_pca.joblib
+│   ├── random_forest_pca.joblib
+│   ├── pca_transformer.joblib            # Trained PCA (31 components, >= 90% variance)
+│   ├── scaler.joblib                     # StandardScaler parameters
+│   ├── model.json                        # Portable JSON weights for web & edge inference
+│   └── experiment_results.json           # Raw metrics and evaluation logs
+├── assignment_specs/                     # 📋 Course Syllabus & Problem Statement
+│   ├── case_study_p1.png
+│   └── case_study_p2.png
+├── assets/                               # Charts for README display
+├── .gitignore
+└── README.md
+```
 
 ---
 
@@ -87,11 +121,11 @@ Direct answers to the 7 core questions from **Section 8** of the case study syll
 ## 💻 6. How to Run Locally
 
 ### Option A: Open Web App Directly
-Simply open `index.html` in any modern web browser (Chrome, Safari, Edge, Firefox). Zero installation required!
+Simply open `docs/index.html` in any web browser. Zero installation required!
 
 Or run a local server:
 ```bash
-python3 -m http.server 8000
+python3 -m http.server 8000 --directory docs
 ```
 Open `http://localhost:8000` in your browser.
 
@@ -100,13 +134,13 @@ Open `http://localhost:8000` in your browser.
    ```bash
    pip install scikit-learn numpy matplotlib seaborn pandas
    ```
-2. Run experiment script:
+2. Re-run training & export:
    ```bash
-   python3 train_and_export.py
+   python3 scripts/train_and_export.py
    ```
 3. Open and run the Jupyter Notebook:
    ```bash
-   jupyter notebook Case_Study_46_Handwritten_Digit_Recognition.ipynb
+   jupyter notebook notebooks/Case_Study_46_Handwritten_Digit_Recognition.ipynb
    ```
 
 ---
@@ -114,9 +148,9 @@ Open `http://localhost:8000` in your browser.
 ## 🌐 7. How to Enable GitHub Pages (Instant Live Link)
 1. Go to your repository settings on GitHub: `https://github.com/MSB-io/handwritten-digit-recognition/settings/pages`.
 2. Under **Build and deployment** $\rightarrow$ **Source**, select **Deploy from a branch**.
-3. Under **Branch**, select `main` and `/ (root)`, then click **Save**.
-4. In 1–2 minutes, your live site will be active at:
-   `https://msb-io.github.io/handwritten-digit-recognition/`
+3. Under **Branch**, select `main` and **`/docs`**, then click **Save**.
+4. In 1–2 minutes, your live site will be active at:  
+   👉 **`https://msb-io.github.io/handwritten-digit-recognition/`**
 
 ---
 
