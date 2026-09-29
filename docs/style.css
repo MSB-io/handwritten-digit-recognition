@@ -69,22 +69,20 @@ body {
    ========================================================================== */
 
 .has-crosshairs,
-.card,
 .metric-card,
 .canvas-wrapper,
 .prediction-display,
-.digit-box,
+.table-responsive,
 .chart-card,
 .qa-card,
 .limit-box {
   position: relative;
 }
 
-.card::after,
 .metric-card::after,
 .canvas-wrapper::after,
 .prediction-display::after,
-.digit-box::after,
+.table-responsive::after,
 .chart-card::after,
 .qa-card::after,
 .limit-box::after {
@@ -104,10 +102,11 @@ body {
   transition: opacity 0.2s ease;
 }
 
-.card:hover::after,
 .metric-card:hover::after,
 .qa-card:hover::after,
-.chart-card:hover::after {
+.chart-card:hover::after,
+.prediction-display:hover::after,
+.canvas-wrapper:hover::after {
   background-image: 
     url("data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.5 0V9M0 4.5H9' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E"),
     url("data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.5 0V9M0 4.5H9' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E"),
@@ -303,21 +302,19 @@ body {
   color: var(--text-secondary);
 }
 
-/* Glassmorphic Cards */
-.card {
-  background: var(--glass-bg);
-  backdrop-filter: var(--glass-blur);
-  -webkit-backdrop-filter: var(--glass-blur);
-  border: 1px solid var(--glass-border);
-  padding: 1.75rem;
-  box-shadow: var(--shadow-card);
+/* Panels (Borderless Layout Columns) */
+.drawing-panel,
+.prediction-panel {
+  display: flex;
+  flex-direction: column;
 }
 
 /* Workspace Grid */
 .workspace-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1.75rem;
+  gap: 2.5rem;
+  align-items: start;
 }
 
 @media (max-width: 900px) {
@@ -491,11 +488,10 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: #000000;
-  border: 1px solid rgba(255, 255, 255, 0.35);
+  background: transparent;
+  border-right: 1px solid var(--glass-border);
   min-width: 120px;
-  height: 120px;
-  box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
+  padding-right: 1.5rem;
 }
 
 .digit-label {
