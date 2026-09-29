@@ -1,6 +1,7 @@
 /* ==========================================================================
    Case Study 46: Handwritten Digit Recognition Design System
-   Monochrome (Black, White, Shades of Gray) | Glassmorphism
+   Monochrome (Black, White, Shades of Gray) | Dark Glassmorphism
+   Sharp Edges (0px radius) | Mini Corner Crosshairs
    Typography: Geist & Geist Mono Only
    ========================================================================== */
 
@@ -11,10 +12,10 @@
   --bg-black: #000000;
   --bg-surface: #0a0a0a;
   
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-bg-hover: rgba(255, 255, 255, 0.05);
-  --glass-border: rgba(255, 255, 255, 0.09);
-  --glass-border-focus: rgba(255, 255, 255, 0.25);
+  --glass-bg: rgba(255, 255, 255, 0.025);
+  --glass-bg-hover: rgba(255, 255, 255, 0.045);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-border-focus: rgba(255, 255, 255, 0.3);
   
   --text-pure: #ffffff;
   --text-primary: #ededed;
@@ -26,15 +27,15 @@
   --btn-primary-text: #000000;
   --btn-primary-hover: #e5e5e5;
   
-  --radius-sm: 8px;
-  --radius-md: 14px;
-  --radius-lg: 20px;
-  --radius-full: 9999px;
+  /* Sharp Geometry: 0px radius */
+  --radius-sm: 0px;
+  --radius-md: 0px;
+  --radius-lg: 0px;
+  --radius-full: 0px;
   
   --glass-blur: blur(20px);
-  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.45);
-  --shadow-glow: 0 0 24px rgba(255, 255, 255, 0.12);
-  --transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  --shadow-card: 0 8px 32px 0 rgba(0, 0, 0, 0.55);
+  --transition: all 0.15s cubic-bezier(0.16, 1, 0.3, 1);
   
   /* Fonts: Geist & Geist Mono Only */
   --font-main: 'Geist', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -45,14 +46,15 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
+  border-radius: 0 !important; /* Global Sharp Edges */
 }
 
 body {
   font-family: var(--font-main);
   background-color: var(--bg-black);
   background-image: 
-    radial-gradient(circle at 15% 15%, rgba(255, 255, 255, 0.04) 0%, transparent 45%),
-    radial-gradient(circle at 85% 85%, rgba(255, 255, 255, 0.03) 0%, transparent 50%);
+    radial-gradient(circle at 10% 10%, rgba(255, 255, 255, 0.035) 0%, transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(255, 255, 255, 0.025) 0%, transparent 45%);
   background-attachment: fixed;
   color: var(--text-primary);
   line-height: 1.6;
@@ -61,10 +63,62 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* ==========================================================================
+   Mini Corner Crosshairs Pattern
+   Draws 4 precise "+" symbols centered on element corners
+   ========================================================================== */
+
+.has-crosshairs,
+.card,
+.metric-card,
+.canvas-wrapper,
+.prediction-display,
+.digit-box,
+.chart-card,
+.qa-card,
+.limit-box {
+  position: relative;
+}
+
+.card::after,
+.metric-card::after,
+.canvas-wrapper::after,
+.prediction-display::after,
+.digit-box::after,
+.chart-card::after,
+.qa-card::after,
+.limit-box::after {
+  content: '';
+  position: absolute;
+  inset: -4.5px;
+  pointer-events: none;
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.5 0V9M0 4.5H9' stroke='%23737373' stroke-width='1'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.5 0V9M0 4.5H9' stroke='%23737373' stroke-width='1'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.5 0V9M0 4.5H9' stroke='%23737373' stroke-width='1'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.5 0V9M0 4.5H9' stroke='%23737373' stroke-width='1'/%3E%3C/svg%3E");
+  background-position: top left, top right, bottom left, bottom right;
+  background-repeat: no-repeat;
+  background-size: 9px 9px;
+  z-index: 10;
+  transition: opacity 0.2s ease;
+}
+
+.card:hover::after,
+.metric-card:hover::after,
+.qa-card:hover::after,
+.chart-card:hover::after {
+  background-image: 
+    url("data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.5 0V9M0 4.5H9' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.5 0V9M0 4.5H9' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.5 0V9M0 4.5H9' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E"),
+    url("data:image/svg+xml,%3Csvg width='9' height='9' viewBox='0 0 9 9' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M4.5 0V9M0 4.5H9' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E");
+}
+
 /* Header */
 .app-header {
   border-bottom: 1px solid var(--glass-border);
-  background: rgba(0, 0, 0, 0.75);
+  background: rgba(0, 0, 0, 0.85);
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   position: sticky;
@@ -82,28 +136,19 @@ body {
   gap: 1.5rem;
 }
 
-.brand {
-  display: flex;
-  flex-direction: column;
-  gap: 0.25rem;
-}
-
-.brand-top {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
 .brand h1 {
   font-size: 1.35rem;
   font-weight: 700;
   letter-spacing: -0.03em;
   color: var(--text-pure);
+  display: inline-block;
+  margin-left: 0.5rem;
 }
 
 .subtitle {
   font-size: 0.82rem;
   color: var(--text-secondary);
+  margin-top: 0.2rem;
 }
 
 .subtitle strong {
@@ -120,8 +165,7 @@ body {
   background: rgba(255, 255, 255, 0.06);
   color: var(--text-primary);
   border: 1px solid var(--glass-border);
-  padding: 0.2rem 0.6rem;
-  border-radius: var(--radius-full);
+  padding: 0.2rem 0.55rem;
 }
 
 .header-actions {
@@ -130,13 +174,12 @@ body {
   gap: 0.75rem;
 }
 
-/* Buttons (Strictly Monochrome) */
+/* Buttons (Sharp & Monochrome) */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
   padding: 0.55rem 1rem;
-  border-radius: var(--radius-sm);
   font-family: var(--font-main);
   font-size: 0.85rem;
   font-weight: 600;
@@ -149,13 +192,12 @@ body {
 .btn-primary {
   background: var(--btn-primary-bg);
   color: var(--btn-primary-text);
-  box-shadow: 0 0 16px rgba(255, 255, 255, 0.12);
+  border: 1px solid #ffffff;
 }
 
 .btn-primary:hover {
   background: var(--btn-primary-hover);
   transform: translateY(-1px);
-  box-shadow: 0 0 24px rgba(255, 255, 255, 0.2);
 }
 
 .btn-secondary {
@@ -210,11 +252,11 @@ body {
   gap: 2rem;
 }
 
-/* Top Metrics Banner (Glassmorphism) */
+/* Top Metrics Banner (Glassmorphism & Crosshairs) */
 .metrics-banner {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .metric-card {
@@ -222,7 +264,6 @@ body {
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -233,11 +274,10 @@ body {
 .metric-card:hover {
   border-color: var(--glass-border-focus);
   background: var(--glass-bg-hover);
-  transform: translateY(-2px);
 }
 
 .metric-card.highlight {
-  border-color: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.05);
 }
 
@@ -269,7 +309,6 @@ body {
   backdrop-filter: var(--glass-blur);
   -webkit-backdrop-filter: var(--glass-blur);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-lg);
   padding: 1.75rem;
   box-shadow: var(--shadow-card);
 }
@@ -313,20 +352,17 @@ body {
   background: rgba(255, 255, 255, 0.05);
   color: var(--text-primary);
   padding: 0.2rem 0.5rem;
-  border-radius: var(--radius-sm);
   border: 1px solid var(--glass-border);
 }
 
-/* Canvas Area */
+/* Drawing Canvas */
 .canvas-wrapper {
   position: relative;
   width: 280px;
   height: 280px;
   margin: 0 auto;
-  border-radius: var(--radius-md);
-  overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.16);
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.8);
   background: #000000;
   cursor: crosshair;
 }
@@ -388,11 +424,11 @@ body {
   width: 68px;
   height: 68px;
   background: #000000;
-  border: 1px solid rgba(255, 255, 255, 0.15);
-  border-radius: var(--radius-sm);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
 }
 
 #preview8x8, #previewPca {
@@ -410,7 +446,8 @@ body {
 
 .pipeline-arrow {
   color: var(--text-muted);
-  font-size: 1.1rem;
+  font-size: 1.2rem;
+  font-family: var(--font-mono);
 }
 
 /* Prediction Panel */
@@ -427,7 +464,6 @@ body {
   color: var(--text-primary);
   border: 1px solid var(--glass-border);
   padding: 0.4rem 0.75rem;
-  border-radius: var(--radius-sm);
   font-family: var(--font-main);
   font-size: 0.82rem;
   font-weight: 500;
@@ -446,7 +482,6 @@ body {
   gap: 1.5rem;
   background: rgba(255, 255, 255, 0.02);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
   padding: 1.5rem;
   margin-bottom: 1.5rem;
 }
@@ -457,8 +492,7 @@ body {
   align-items: center;
   justify-content: center;
   background: #000000;
-  border: 1px solid rgba(255, 255, 255, 0.3);
-  border-radius: var(--radius-md);
+  border: 1px solid rgba(255, 255, 255, 0.35);
   min-width: 120px;
   height: 120px;
   box-shadow: 0 0 20px rgba(255, 255, 255, 0.08);
@@ -513,14 +547,15 @@ body {
   font-weight: 700;
 }
 
-/* Probabilities Bars (Pure Monochrome) */
+/* Probabilities Bars (Sharp Linear) */
 .probabilities-container h3 {
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 600;
   color: var(--text-secondary);
   margin-bottom: 0.85rem;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
+  font-family: var(--font-mono);
 }
 
 .prob-bars {
@@ -548,17 +583,16 @@ body {
   flex: 1;
   height: 12px;
   background: rgba(255, 255, 255, 0.04);
-  border-radius: var(--radius-full);
+  border: 1px solid rgba(255, 255, 255, 0.05);
   overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.03);
+  position: relative;
 }
 
 .prob-bar-fill {
   height: 100%;
   background: #525252;
-  border-radius: var(--radius-full);
   width: 0%;
-  transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: width 0.2s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .prob-row.active .prob-digit {
@@ -568,7 +602,6 @@ body {
 
 .prob-row.active .prob-bar-fill {
   background: #ffffff;
-  box-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
 }
 
 .prob-percent {
@@ -602,10 +635,9 @@ body {
   font-size: 0.9rem;
 }
 
-/* Data Table (Monochrome) */
+/* Data Table (Sharp Monochrome) */
 .table-responsive {
   overflow-x: auto;
-  border-radius: var(--radius-md);
   border: 1px solid var(--glass-border);
   margin-bottom: 2rem;
 }
@@ -655,7 +687,6 @@ body {
   font-size: 0.72rem;
   font-family: var(--font-mono);
   padding: 0.2rem 0.5rem;
-  border-radius: var(--radius-full);
   background: rgba(255, 255, 255, 0.06);
   color: var(--text-primary);
   border: 1px solid var(--glass-border);
@@ -689,7 +720,6 @@ body {
 .chart-card {
   background: rgba(0, 0, 0, 0.4);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
   padding: 1.25rem;
   display: flex;
   flex-direction: column;
@@ -709,7 +739,6 @@ body {
 .responsive-chart {
   width: 100%;
   height: auto;
-  border-radius: var(--radius-sm);
   border: 1px solid var(--glass-border);
 }
 
@@ -723,17 +752,16 @@ body {
   color: var(--text-pure);
 }
 
-/* Q&A Section (Monochrome Cards) */
+/* Q&A Section (Sharp Cards with Crosshairs) */
 .qa-grid {
   display: grid;
   grid-template-columns: 1fr;
-  gap: 1rem;
+  gap: 1.25rem;
 }
 
 .qa-card {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
   padding: 1.25rem;
   display: flex;
   gap: 1.25rem;
@@ -743,11 +771,10 @@ body {
 .qa-card:hover {
   border-color: var(--glass-border-focus);
   background: var(--glass-bg-hover);
-  transform: translateX(3px);
 }
 
 .qa-card.highlight-qa {
-  border-color: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.25);
   background: rgba(255, 255, 255, 0.04);
 }
 
@@ -760,7 +787,6 @@ body {
   border: 1px solid var(--glass-border);
   width: 40px;
   height: 40px;
-  border-radius: var(--radius-sm);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -800,7 +826,6 @@ body {
 .limit-box {
   background: var(--glass-bg);
   border: 1px solid var(--glass-border);
-  border-radius: var(--radius-md);
   padding: 1.25rem;
 }
 
