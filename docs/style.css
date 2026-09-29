@@ -63,56 +63,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-/* ==========================================================================
-   Mini Corner Crosshairs Pattern
-   Draws 4 precise "+" symbols centered on element corners
-   ========================================================================== */
 
-.has-crosshairs,
-.metric-card,
-.canvas-wrapper,
-.prediction-display,
-.table-responsive,
-.chart-card,
-.qa-card,
-.limit-box {
-  position: relative;
-}
-
-.metric-card::after,
-.canvas-wrapper::after,
-.prediction-display::after,
-.table-responsive::after,
-.chart-card::after,
-.qa-card::after,
-.limit-box::after {
-  content: '';
-  position: absolute;
-  inset: -5px;
-  pointer-events: none;
-  background-image: 
-    url("data:image/svg+xml,%3Csvg width='11' height='11' viewBox='0 0 11 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.5 0V11M0 5.5H11' stroke='%23737373' stroke-width='1'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg width='11' height='11' viewBox='0 0 11 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.5 0V11M0 5.5H11' stroke='%23737373' stroke-width='1'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg width='11' height='11' viewBox='0 0 11 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.5 0V11M0 5.5H11' stroke='%23737373' stroke-width='1'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg width='11' height='11' viewBox='0 0 11 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.5 0V11M0 5.5H11' stroke='%23737373' stroke-width='1'/%3E%3C/svg%3E");
-  background-position: top left, top right, bottom left, bottom right;
-  background-repeat: no-repeat;
-  background-size: 11px 11px;
-  z-index: 10;
-  transition: opacity 0.2s ease;
-}
-
-.metric-card:hover::after,
-.qa-card:hover::after,
-.chart-card:hover::after,
-.prediction-display:hover::after,
-.canvas-wrapper:hover::after {
-  background-image: 
-    url("data:image/svg+xml,%3Csvg width='11' height='11' viewBox='0 0 11 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.5 0V11M0 5.5H11' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg width='11' height='11' viewBox='0 0 11 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.5 0V11M0 5.5H11' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg width='11' height='11' viewBox='0 0 11 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.5 0V11M0 5.5H11' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E"),
-    url("data:image/svg+xml,%3Csvg width='11' height='11' viewBox='0 0 11 11' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M5.5 0V11M0 5.5H11' stroke='%23ffffff' stroke-width='1'/%3E%3C/svg%3E");
-}
 
 /* Header */
 .app-header {
