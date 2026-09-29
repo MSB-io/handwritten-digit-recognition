@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Handwritten Digit Recognition using PCA & ML | Case Study 46</title>
+  <meta name="description" content="Postal automation handwritten digit recognition using Principal Component Analysis (PCA) and Machine Learning classification (KNN, Logistic Regression, Random Forest, Gradient Boosting).">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <!-- Header / Navigation -->
+  <header class="app-header">
+    <div class="header-container">
+      <div class="brand">
+        <span class="badge">Case Study 46</span>
+        <h1>Handwritten Digit Recognition</h1>
+        <p class="subtitle">Dimensionality Reduction via <strong>PCA (90% Variance)</strong> & Multi-Model Classification</p>
+      </div>
+      <div class="header-actions">
+        <a href="#answers-section" class="btn btn-outline">Exam Q&A Guide</a>
+        <a href="#study-section" class="btn btn-outline">Comparative Study</a>
+        <a href="https://github.com/MSB-io/handwritten-digit-recognition" target="_blank" rel="noopener" class="btn btn-primary">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0024 12c0-6.63-5.37-12-12-12z"/></svg>
+          GitHub Repo
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="main-container">
+    
+    <!-- Top Summary Banner -->
+    <section class="metrics-banner">
+      <div class="metric-card">
+        <span class="metric-label">Dataset</span>
+        <span class="metric-value">Scikit-Learn Digits</span>
+        <span class="metric-sub">1,797 samples (8×8 pixels)</span>
+      </div>
+      <div class="metric-card highlight">
+        <span class="metric-label">PCA Reduction</span>
+        <span class="metric-value">64 → 31 Features</span>
+        <span class="metric-sub">Retains 90.06% Information (51.6% Saved)</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Best Post-PCA Model</span>
+        <span class="metric-value">KNN (k=5)</span>
+        <span class="metric-sub">97.50% Test Accuracy (+1.11% gain)</span>
+      </div>
+      <div class="metric-card">
+        <span class="metric-label">Postal Automation Task</span>
+        <span class="metric-value">Real-Time Inference</span>
+        <span class="metric-sub">&lt; 2 ms Client-Side Latency</span>
+      </div>
+    </section>
+
+    <!-- Interactive Workspace Grid -->
+    <div class="workspace-grid">
+      
+      <!-- Left Panel: Drawing Canvas & Preprocessing -->
+      <section class="card drawing-panel">
+        <div class="panel-header">
+          <h2>Draw or Upload Digit</h2>
+          <span class="tag">Live Preprocessor</span>
+        </div>
+        <p class="panel-desc">Draw a digit (0 to 9) in the center of the canvas or upload an image file.</p>
+
+        <!-- Canvas Container -->
+        <div class="canvas-wrapper">
+          <canvas id="digitCanvas" width="280" height="280"></canvas>
+          <div class="canvas-grid-overlay"></div>
+        </div>
+
+        <!-- Canvas Controls -->
+        <div class="canvas-controls">
+          <button id="btnClear" class="btn btn-secondary">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 6h18M19 6v14a2 2 0 01-2 2H7a2 2 0 01-2-2V6m3 0V4a2 2 0 012-2h4a2 2 0 012 2v2"/></svg>
+            Clear
+          </button>
+          
+          <label class="btn btn-secondary file-upload-btn">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/></svg>
+            Upload Image
+            <input type="file" id="imageUpload" accept="image/*">
+          </label>
+
+          <button id="btnSample" class="btn btn-secondary" title="Load a random test sample">
+            🎲 Random Digit
+          </button>
+        </div>
+
+        <div class="stroke-control">
+          <label for="strokeWidth">Pen Thickness:</label>
+          <input type="range" id="strokeWidth" min="14" max="32" value="22">
+        </div>
+
+        <!-- Preprocessing Pipeline Visualizer -->
+        <div class="pipeline-visualizer">
+          <div class="visual-step">
+            <span class="step-title">1. Downscaled 8×8 Grid</span>
+            <div class="pixel-preview-box">
+              <canvas id="preview8x8" width="64" height="64"></canvas>
+            </div>
+            <span class="step-meta">64 raw features</span>
+          </div>
+
+          <div class="pipeline-arrow">➔</div>
+
+          <div class="visual-step">
+            <span class="step-title">2. PCA Reconstruction</span>
+            <div class="pixel-preview-box">
+              <canvas id="previewPca" width="64" height="64"></canvas>
+            </div>
+            <span class="step-meta">31 components (90% var)</span>
+          </div>
+        </div>
+      </section>
+
+      <!-- Right Panel: Prediction & Probabilities -->
+      <section class="card prediction-panel">
+        <div class="panel-header">
+          <h2>Prediction Engine</h2>
+          <!-- Model Selector -->
+          <div class="model-select-wrapper">
+            <label for="modelSelect">Classifier:</label>
+            <select id="modelSelect" class="form-select">
+              <option value="knn" selected>K-Nearest Neighbors (KNN + PCA) — 97.50%</option>
+              <option value="lr">Logistic Regression (Softmax + PCA) — 94.72%</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Big Prediction Banner -->
+        <div class="prediction-display">
+          <div class="digit-box">
+            <span class="digit-label">Detected Digit</span>
+            <span id="predictedDigit" class="digit-number">-</span>
+          </div>
+          <div class="prediction-details">
+            <div class="detail-row">
+              <span class="detail-name">Confidence:</span>
+              <span id="predictionConfidence" class="detail-value highlight-val">-</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-name">Active Features:</span>
+              <span class="detail-value">31 PCA Components</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-name">Inference Latency:</span>
+              <span id="inferenceLatency" class="detail-value">&lt; 1 ms</span>
+            </div>
+            <div class="detail-row">
+              <span class="detail-name">Dimensionality Reduction:</span>
+              <span class="detail-value green-val">51.6% Compression</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Probability Distribution Bar Chart -->
+        <div class="probabilities-container">
+          <h3>Class Probability Distribution (Digits 0–9)</h3>
+          <div class="prob-bars" id="probBars">
+            <!-- Dynamically populated 0 to 9 bars -->
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Comparative Study Section (Requirement 5) -->
+    <section id="study-section" class="card study-section">
+      <div class="section-heading">
+        <span class="badge">Section 5 Requirement</span>
+        <h2>Comparative Study: With vs. Without PCA</h2>
+        <p>Evaluating Accuracy, Precision, Recall, F1-Score, and Training Time across all 4 required algorithms.</p>
+      </div>
+
+      <!-- Results Table -->
+      <div class="table-responsive">
+        <table class="data-table">
+          <thead>
+            <tr>
+              <th>Algorithm</th>
+              <th>Pipeline Condition</th>
+              <th>Features</th>
+              <th>Accuracy</th>
+              <th>Precision (Macro)</th>
+              <th>Recall (Macro)</th>
+              <th>F1-Score (Macro)</th>
+              <th>Training Time</th>
+              <th>Impact of PCA</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="bold-text">Logistic Regression</td>
+              <td>Without PCA (Baseline)</td>
+              <td>64</td>
+              <td>97.22%</td>
+              <td>0.9719</td>
+              <td>0.9722</td>
+              <td>0.9719</td>
+              <td>0.0165 s</td>
+              <td>Baseline</td>
+            </tr>
+            <tr class="pca-row">
+              <td class="bold-text">Logistic Regression</td>
+              <td><span class="pill">With PCA (90%)</span></td>
+              <td>31</td>
+              <td>94.72%</td>
+              <td>0.9470</td>
+              <td>0.9474</td>
+              <td>0.9470</td>
+              <td>0.0200 s</td>
+              <td>-2.50% Acc (Minimal loss)</td>
+            </tr>
+            <tr>
+              <td class="bold-text">KNN (k=5)</td>
+              <td>Without PCA (Baseline)</td>
+              <td>64</td>
+              <td>96.39%</td>
+              <td>0.9634</td>
+              <td>0.9636</td>
+              <td>0.9634</td>
+              <td>0.0005 s</td>
+              <td>Baseline</td>
+            </tr>
+            <tr class="pca-row highlight-winner">
+              <td class="bold-text">KNN (k=5) ⭐ [Best]</td>
+              <td><span class="pill green-pill">With PCA (90%)</span></td>
+              <td>31</td>
+              <td><strong>97.50%</strong></td>
+              <td><strong>0.9746</strong></td>
+              <td><strong>0.9749</strong></td>
+              <td><strong>0.9746</strong></td>
+              <td><strong>0.0003 s</strong></td>
+              <td><span class="gain">+1.11% Acc &amp; 36% faster!</span></td>
+            </tr>
+            <tr>
+              <td class="bold-text">Random Forest</td>
+              <td>Without PCA (Baseline)</td>
+              <td>64</td>
+              <td>96.39%</td>
+              <td>0.9634</td>
+              <td>0.9636</td>
+              <td>0.9634</td>
+              <td>0.1799 s</td>
+              <td>Baseline</td>
+            </tr>
+            <tr class="pca-row">
+              <td class="bold-text">Random Forest</td>
+              <td><span class="pill">With PCA (90%)</span></td>
+              <td>31</td>
+              <td>95.00%</td>
+              <td>0.9497</td>
+              <td>0.9498</td>
+              <td>0.9497</td>
+              <td>0.2647 s</td>
+              <td>-1.39% Acc</td>
+            </tr>
+            <tr>
+              <td class="bold-text">Gradient Boosting</td>
+              <td>Without PCA (Baseline)</td>
+              <td>64</td>
+              <td>95.28%</td>
+              <td>0.9521</td>
+              <td>0.9523</td>
+              <td>0.9521</td>
+              <td>4.0681 s</td>
+              <td>Baseline</td>
+            </tr>
+            <tr class="pca-row">
+              <td class="bold-text">Gradient Boosting</td>
+              <td><span class="pill">With PCA (90%)</span></td>
+              <td>31</td>
+              <td>93.33%</td>
+              <td>0.9331</td>
+              <td>0.9334</td>
+              <td>0.9331</td>
+              <td>6.4945 s</td>
+              <td>-1.95% Acc</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Charts Grid -->
+      <div class="charts-grid">
+        <div class="chart-card">
+          <h3>PCA Scree Plot (Cumulative Explained Variance)</h3>
+          <img src="assets/pca_variance_curve.png" alt="PCA Explained Variance Curve" class="responsive-chart">
+          <p class="chart-caption">Exactly <strong>31 principal components</strong> retain <strong>90.06%</strong> of cumulative variance from the original 64 pixel features.</p>
+        </div>
+
+        <div class="chart-card">
+          <h3>Classification Accuracy: Raw vs. PCA</h3>
+          <img src="assets/accuracy_comparison.png" alt="Accuracy Comparison Bar Chart" class="responsive-chart">
+          <p class="chart-caption">KNN achieved superior performance after PCA (+1.11%), showing how dimensionality reduction mitigates the curse of dimensionality for distance metrics.</p>
+        </div>
+
+        <div class="chart-card wide-card">
+          <h3>Confusion Matrix Analysis on Test Set (360 Samples)</h3>
+          <img src="assets/confusion_matrices.png" alt="Confusion Matrix Heatmaps" class="responsive-chart">
+          <p class="chart-caption">Analysis of misclassifications: Most frequent confusion occurs on digit <strong>8</strong> (confused with 1 and 2) and digit <strong>9</strong> (confused with 6 and 8) due to small 8×8 stroke overlaps.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Section 8 Exam Questions & Answers (Mid-Sem Goldmine) -->
+    <section id="answers-section" class="card answers-section">
+      <div class="section-heading">
+        <span class="badge">Section 8 Requirement</span>
+        <h2>Questions to Be Answered Using ML (Mid-Sem Viva Guide)</h2>
+        <p>Direct, technically verified answers to the 7 core questions defined in the case study syllabus.</p>
+      </div>
+
+      <div class="qa-grid">
+        
+        <div class="qa-card">
+          <div class="qa-number">Q1</div>
+          <div class="qa-body">
+            <h3>Can handwritten digits be recognised from pixel values?</h3>
+            <p><strong>Yes.</strong> Pixel intensity values represent spatial brightness maps of handwriting strokes. When treated as numerical feature vectors ($X \in \mathbb{R}^{64}$), machine learning algorithms can construct both linear and non-linear decision boundaries to differentiate digit shapes with up to <strong>97.50% test accuracy</strong>.</p>
+          </div>
+        </div>
+
+        <div class="qa-card highlight-qa">
+          <div class="qa-number">Q2</div>
+          <div class="qa-body">
+            <h3>How many principal components retain ninety percent of the variance?</h3>
+            <p>Exactly <strong>31 principal components</strong> out of the 64 original features retain <strong>90.06%</strong> of the total dataset variance. This compresses the feature space by <strong>51.6%</strong> while eliminating redundant background pixels.</p>
+          </div>
+        </div>
+
+        <div class="qa-card">
+          <div class="qa-number">Q3</div>
+          <div class="qa-body">
+            <h3>Does PCA reduce accuracy, and by how much?</h3>
+            <p><strong>Not necessarily!</strong> While tree models experienced a tiny drop (-1.39% to -1.95%) and Logistic Regression dipped by -2.50%, <strong>KNN accuracy actually increased by +1.11% (from 96.39% to 97.50%)</strong> because PCA removes collinear noise, combating the <em>curse of dimensionality</em> in Euclidean distance computation.</p>
+          </div>
+        </div>
+
+        <div class="qa-card">
+          <div class="qa-number">Q4</div>
+          <div class="qa-body">
+            <h3>How much training time does PCA save?</h3>
+            <p>In low-dimensional 8×8 data, models train in fractions of a second. For KNN, test-time neighbor distance computation was <strong>36.3% faster</strong> with PCA. For large-scale postal systems (like MNIST 784), PCA reduces input features by ~88%, saving immense training time and memory overhead.</p>
+          </div>
+        </div>
+
+        <div class="qa-card">
+          <div class="qa-number">Q5</div>
+          <div class="qa-body">
+            <h3>Which digits are most frequently confused?</h3>
+            <p><strong>Digit 8</strong> is the most frequently confused class (misclassified as <strong>1</strong> or <strong>2</strong> in 4 instances), followed by <strong>Digit 9</strong> (confused with <strong>6</strong> or <strong>8</strong>). This happens because in low 8×8 resolution, loops in an '8' can degrade into faint vertical strokes mimicking a '1'.</p>
+          </div>
+        </div>
+
+        <div class="qa-card highlight-qa">
+          <div class="qa-number">Q6</div>
+          <div class="qa-body">
+            <h3>Which algorithm performs best after PCA?</h3>
+            <p><strong>K-Nearest Neighbors (KNN with $k=5$)</strong> is the clear winner, achieving the highest test accuracy of <strong>97.50%</strong> and an F1-Score of <strong>0.9746</strong>, outperforming Logistic Regression (94.72%), Random Forest (95.00%), and Gradient Boosting (93.33%).</p>
+          </div>
+        </div>
+
+        <div class="qa-card">
+          <div class="qa-number">Q7</div>
+          <div class="qa-body">
+            <h3>Can the model be deployed as a digit recognition application?</h3>
+            <p><strong>Yes.</strong> This application proves it: the trained PCA projection matrix and model weights are exported and execute real-time inference directly in the client browser with sub-millisecond latency and confidence scoring.</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- Limitations and Real-World Applicability (Requirement 7) -->
+    <section class="card limitations-section">
+      <div class="section-heading">
+        <span class="badge">Section 7 Requirement</span>
+        <h2>Limitations &amp; Real-World Applicability</h2>
+      </div>
+      <div class="limits-grid">
+        <div class="limit-box">
+          <h4>Limitations of Pixel-Based Recognition</h4>
+          <ul>
+            <li><strong>Sensitivity to Centering &amp; Scale:</strong> Pixel-based models assume digits are perfectly centered. If a digit is drawn off-center or tilted, pixel positions shift drastically.</li>
+            <li><strong>Low Resolution (8×8):</strong> Finer stroke distinctions (like differentiating an 8 from a 3 or 1) can be lost due to pixelation.</li>
+            <li><strong>Lack of Spatial Invariance:</strong> Unlike Convolutional Neural Networks (CNNs), standard pixel feature vectors don't naturally learn translation-invariant stroke edges.</li>
+          </ul>
+        </div>
+        <div class="limit-box">
+          <h4>Real-World Postal Automation Application</h4>
+          <ul>
+            <li><strong>High-Speed Automated Mail Sorting:</strong> Fast PCA dimensionality reduction allows postal systems to process thousands of ZIP codes per second.</li>
+            <li><strong>Edge Device Deployment:</strong> The lightweight footprint (31 components) enables deployment directly on camera-equipped postal conveyor belts without expensive GPU hardware.</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Footer -->
+  <footer class="app-footer">
+    <div class="footer-container">
+      <p>B.Tech CSE Semester V &bull; Machine Learning Case Study 46 &bull; ITM Skills University</p>
+      <p class="copyright">Built with Vanilla HTML/CSS/JS &bull; 100% Client-Side Machine Learning</p>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="model_data.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
