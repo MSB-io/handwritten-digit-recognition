@@ -3,7 +3,7 @@
 > **B.Tech Computer Science & Engineering (2024-28) - Semester V**  
 > **Course:** Machine Learning | **Institution:** ITM Skills University - School of Future Tech  
 > **Live Web Demo:** [https://msb-io.github.io/handwritten-digit-recognition/](https://msb-io.github.io/handwritten-digit-recognition/)  
-> **Full Research Notebook:** [`notebooks/Case_Study_46_Handwritten_Digit_Recognition.ipynb`](notebooks/Case_Study_46_Handwritten_Digit_Recognition.ipynb)
+> **Google Colab Notebook:** [Open in Google Colab](https://colab.research.google.com/drive/1kTOeMzGCiN0HxwHrBNd3Xd0v0UyKECfm?usp=sharing)
 
 ---
 
@@ -17,12 +17,9 @@ handwritten-digit-recognition/
 │   ├── app.js                            # Client-side ML inference, canvas preprocessing, PCA
 │   ├── model_data.js                     # In-browser model weights & PCA projection matrix
 │   └── assets/                           # High-res analytical charts & diagrams
-├── notebooks/                            # Academic Jupyter Notebooks
-│   └── Case_Study_46_Handwritten_Digit_Recognition.ipynb
 ├── scripts/                              # Python Pipeline & Training Scripts
 │   ├── train_and_export.py               # Model training, PCA fitting, 8-way comparative matrix
-│   ├── generate_assets.py                # Visualizations (scree plot, confusion matrix, bar charts)
-│   └── generate_notebook.py              # Automated research notebook generator
+│   └── generate_assets.py                # Visualizations (scree plot, confusion matrix, bar charts)
 ├── models/                               # Serialized Models & Experiment Logs
 │   ├── knn_pca.joblib                    # Best performing model (97.50% test acc)
 │   ├── logistic_regression_pca.joblib
@@ -138,10 +135,8 @@ Open `http://localhost:8000` in your browser.
    ```bash
    python3 scripts/train_and_export.py
    ```
-3. Open and run the Jupyter Notebook:
-   ```bash
-   jupyter notebook notebooks/Case_Study_46_Handwritten_Digit_Recognition.ipynb
-   ```
+3. Run Experiments in Google Colab:
+   Access and execute the complete interactive experiments in [Google Colab](https://colab.research.google.com/drive/1kTOeMzGCiN0HxwHrBNd3Xd0v0UyKECfm?usp=sharing).
 
 ---
 
