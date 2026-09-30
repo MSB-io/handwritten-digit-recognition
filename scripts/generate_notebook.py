@@ -25,8 +25,8 @@ notebook = {
     "cells": [
         make_md_cell("""# Case Study 46: Handwritten Digit Recognition Using PCA and Classification
 
-**Institution:** ITM Skills University — School of Future Tech  
-**Course:** Machine Learning (B.Tech CSE 2024–28, Semester V)  
+**Institution:** ITM Skills University - School of Future Tech  
+**Course:** Machine Learning (B.Tech CSE 2024-28, Semester V)  
 **Dataset:** Scikit-Learn `load_digits()` (8×8 Images, 64 Pixel Features)  
 **Deployment:** Interactive Client-Side Machine Learning Web App (GitHub Pages Ready)
 
@@ -396,7 +396,7 @@ Below are the verified, technically grounded answers to all 7 questions outlined
     "nbformat_minor": 4
 }
 
-with open("Case_Study_46_Handwritten_Digit_Recognition.ipynb", "w") as f:
+with open("notebooks/Case_Study_46_Handwritten_Digit_Recognition.ipynb", "w") as f:
     json.dump(notebook, f, indent=2)
 
 print(" Case_Study_46_Handwritten_Digit_Recognition.ipynb created successfully!")

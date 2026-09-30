@@ -1,7 +1,7 @@
 # Case Study 46: Handwritten Digit Recognition Using PCA & Classification
 
-> **B.Tech Computer Science & Engineering (2024–28) — Semester V**  
-> **Course:** Machine Learning | **Institution:** ITM Skills University — School of Future Tech  
+> **B.Tech Computer Science & Engineering (2024-28) - Semester V**  
+> **Course:** Machine Learning | **Institution:** ITM Skills University - School of Future Tech  
 > **Live Web Demo:** [https://msb-io.github.io/handwritten-digit-recognition/](https://msb-io.github.io/handwritten-digit-recognition/)  
 > **Full Research Notebook:** [`notebooks/Case_Study_46_Handwritten_Digit_Recognition.ipynb`](notebooks/Case_Study_46_Handwritten_Digit_Recognition.ipynb)
 
@@ -50,7 +50,7 @@ This project performs dimensionality reduction via **Principal Component Analysi
 
 ## 2. Key Findings & Metric Highlights
 
-* **Dataset:** Scikit-Learn `load_digits()` — 1,797 samples, 64 features ($8 \times 8$ grid), digits 0–9.
+* **Dataset:** Scikit-Learn `load_digits()`: 1,797 samples, 64 features ($8 \times 8$ grid), digits 0-9.
 * **PCA Compression:** **64 features -> 31 components** (a **51.6% dimensionality reduction**).
 * **Variance Retained:** **90.06%** of cumulative dataset variance is preserved with 31 components.
 * **Best Algorithm After PCA:** **K-Nearest Neighbors (KNN with $k=5$)** achieved **97.50% test accuracy** (+1.11% improvement over raw features).
@@ -149,14 +149,14 @@ Open `http://localhost:8000` in your browser.
 1. Go to your repository settings on GitHub: `https://github.com/MSB-io/handwritten-digit-recognition/settings/pages`.
 2. Under **Build and deployment** -> **Source**, select **Deploy from a branch**.
 3. Under **Branch**, select `main` and **`/docs`**, then click **Save**.
-4. In 1–2 minutes, your live site will be active at:  
+4. In 1-2 minutes, your live site will be active at:  
    `https://msb-io.github.io/handwritten-digit-recognition/`
 
 ---
 
 ## Author & Course Info
 * **Student:** Manthan
-* **Program:** B.Tech Computer Science & Engineering (2024–28)
+* **Program:** B.Tech Computer Science & Engineering (2024-28)
 * **Semester:** V
 * **Subject:** Machine Learning
-* **Institution:** ITM Skills University — School of Future Tech
+* **Institution:** ITM Skills University - School of Future Tech
