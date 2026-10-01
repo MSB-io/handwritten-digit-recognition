@@ -702,64 +702,6 @@ body {
   color: var(--text-pure);
 }
 
-/* Q&A Section (Sharp Cards with Crosshairs) */
-.qa-grid {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 1.25rem;
-}
-
-.qa-card {
-  background: var(--glass-bg);
-  border: 1px solid var(--glass-border);
-  padding: 1.25rem;
-  display: flex;
-  gap: 1.25rem;
-  transition: var(--transition);
-}
-
-.qa-card:hover {
-  border-color: var(--glass-border-focus);
-  background: var(--glass-bg-hover);
-}
-
-.qa-card.highlight-qa {
-  border-color: rgba(255, 255, 255, 0.25);
-  background: rgba(255, 255, 255, 0.04);
-}
-
-.qa-number {
-  font-family: var(--font-mono);
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: #ffffff;
-  background: rgba(255, 255, 255, 0.06);
-  border: 1px solid var(--glass-border);
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
-}
-
-.qa-body h3 {
-  font-size: 0.95rem;
-  font-weight: 600;
-  margin-bottom: 0.35rem;
-  color: var(--text-pure);
-}
-
-.qa-body p {
-  font-size: 0.85rem;
-  color: var(--text-secondary);
-  line-height: 1.5;
-}
-
-.qa-body strong {
-  color: #ffffff;
-}
-
 /* Limitations Section */
 .limits-grid {
   display: grid;

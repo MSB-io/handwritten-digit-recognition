@@ -20,7 +20,6 @@
         <p class="subtitle">Dimensionality Reduction via <strong>PCA (90% Variance)</strong> & Multi-Model Classification</p>
       </div>
       <div class="header-actions">
-        <a href="#answers-section" class="btn btn-outline">Exam Q&A Guide</a>
         <a href="#study-section" class="btn btn-outline">Comparative Study</a>
         <a href="https://colab.research.google.com/drive/1kTOeMzGCiN0HxwHrBNd3Xd0v0UyKECfm?usp=sharing" target="_blank" rel="noopener" class="btn btn-outline">Google Colab</a>
         <a href="https://github.com/MSB-io/handwritten-digit-recognition" target="_blank" rel="noopener" class="btn btn-primary">
@@ -305,75 +304,6 @@
           <img src="assets/confusion_matrices.png" alt="Confusion Matrix Heatmaps" class="responsive-chart">
           <p class="chart-caption">Analysis of misclassifications: Most frequent confusion occurs on digit <strong>8</strong> (confused with 1 and 2) and digit <strong>9</strong> (confused with 6 and 8) due to small 8×8 stroke overlaps.</p>
         </div>
-      </div>
-    </section>
-
-    <!-- Section 8 Exam Questions & Answers (Mid-Sem Goldmine) -->
-    <section id="answers-section" class="answers-section">
-      <div class="section-heading">
-        <span class="badge">Section 8 Requirement</span>
-        <h2>Questions to Be Answered Using ML (Mid-Sem Viva Guide)</h2>
-        <p>Direct, technically verified answers to the 7 core questions defined in the case study syllabus.</p>
-      </div>
-
-      <div class="qa-grid">
-        
-        <div class="qa-card">
-          <div class="qa-number">Q1</div>
-          <div class="qa-body">
-            <h3>Can handwritten digits be recognised from pixel values?</h3>
-            <p><strong>Yes.</strong> Pixel intensity values represent spatial brightness maps of handwriting strokes. When treated as numerical feature vectors ($X \in \mathbb{R}^{64}$), machine learning algorithms can construct both linear and non-linear decision boundaries to differentiate digit shapes with up to <strong>97.50% test accuracy</strong>.</p>
-          </div>
-        </div>
-
-        <div class="qa-card highlight-qa">
-          <div class="qa-number">Q2</div>
-          <div class="qa-body">
-            <h3>How many principal components retain ninety percent of the variance?</h3>
-            <p>Exactly <strong>31 principal components</strong> out of the 64 original features retain <strong>90.06%</strong> of the total dataset variance. This compresses the feature space by <strong>51.6%</strong> while eliminating redundant background pixels.</p>
-          </div>
-        </div>
-
-        <div class="qa-card">
-          <div class="qa-number">Q3</div>
-          <div class="qa-body">
-            <h3>Does PCA reduce accuracy, and by how much?</h3>
-            <p><strong>Not necessarily!</strong> While tree models experienced a tiny drop (-1.39% to -1.95%) and Logistic Regression dipped by -2.50%, <strong>KNN accuracy actually increased by +1.11% (from 96.39% to 97.50%)</strong> because PCA removes collinear noise, combating the <em>curse of dimensionality</em> in Euclidean distance computation.</p>
-          </div>
-        </div>
-
-        <div class="qa-card">
-          <div class="qa-number">Q4</div>
-          <div class="qa-body">
-            <h3>How much training time does PCA save?</h3>
-            <p>In low-dimensional 8×8 data, models train in fractions of a second. For KNN, test-time neighbor distance computation was <strong>36.3% faster</strong> with PCA. For large-scale postal systems (like MNIST 784), PCA reduces input features by ~88%, saving immense training time and memory overhead.</p>
-          </div>
-        </div>
-
-        <div class="qa-card">
-          <div class="qa-number">Q5</div>
-          <div class="qa-body">
-            <h3>Which digits are most frequently confused?</h3>
-            <p><strong>Digit 8</strong> is the most frequently confused class (misclassified as <strong>1</strong> or <strong>2</strong> in 4 instances), followed by <strong>Digit 9</strong> (confused with <strong>6</strong> or <strong>8</strong>). This happens because in low 8×8 resolution, loops in an '8' can degrade into faint vertical strokes mimicking a '1'.</p>
-          </div>
-        </div>
-
-        <div class="qa-card highlight-qa">
-          <div class="qa-number">Q6</div>
-          <div class="qa-body">
-            <h3>Which algorithm performs best after PCA?</h3>
-            <p><strong>K-Nearest Neighbors (KNN with $k=5$)</strong> is the clear winner, achieving the highest test accuracy of <strong>97.50%</strong> and an F1-Score of <strong>0.9746</strong>, outperforming Logistic Regression (94.72%), Random Forest (95.00%), and Gradient Boosting (93.33%).</p>
-          </div>
-        </div>
-
-        <div class="qa-card">
-          <div class="qa-number">Q7</div>
-          <div class="qa-body">
-            <h3>Can the model be deployed as a digit recognition application?</h3>
-            <p><strong>Yes.</strong> This application proves it: the trained PCA projection matrix and model weights are exported and execute real-time inference directly in the client browser with sub-millisecond latency and confidence scoring.</p>
-          </div>
-        </div>
-
       </div>
     </section>
 
