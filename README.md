@@ -31,7 +31,6 @@ handwritten-digit-recognition/
 ├── assignment_specs/                     # Course Syllabus & Problem Statement
 │   ├── case_study_p1.png
 │   └── case_study_p2.png
-├── assets/                               # Charts for README display
 ├── .gitignore
 └── README.md
 ```
@@ -75,15 +74,15 @@ Evaluation on an unseen stratified 20% test set (360 samples):
 ## 4. Visualizations & Analytical Charts
 
 ### A. PCA Explained Variance Curve (Scree Plot)
-![PCA Cumulative Variance](assets/pca_variance_curve.png)
+![PCA Cumulative Variance](docs/assets/pca_variance_curve.png)
 *Figure 1: Cumulative variance curve confirming 31 components retain 90.06% of the variance.*
 
 ### B. Classification Accuracy Comparison
-![Accuracy Comparison](assets/accuracy_comparison.png)
+![Accuracy Comparison](docs/assets/accuracy_comparison.png)
 *Figure 2: Performance comparison across all 4 algorithms with and without PCA.*
 
 ### C. Confusion Matrix Heatmaps
-![Confusion Matrices](assets/confusion_matrices.png)
+![Confusion Matrices](docs/assets/confusion_matrices.png)
 *Figure 3: Test set confusion matrices for KNN (best model) and Logistic Regression.*
 
 ---

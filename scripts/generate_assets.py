@@ -29,7 +29,6 @@ plt.rcParams['grid.color'] = '#1a1a1a'
 plt.rcParams['font.sans-serif'] = 'Geist, Helvetica, Arial, sans-serif'
 plt.rcParams['font.monospace'] = 'Geist Mono, Courier, monospace'
 
-os.makedirs("assets", exist_ok=True)
 os.makedirs("docs/assets", exist_ok=True)
 
 # 1. Load data
@@ -45,7 +44,6 @@ for i, ax in enumerate(axes.flat):
     ax.axis('off')
 plt.suptitle("Sample Handwritten Digits from Scikit-Learn load_digits() (8x8 Grid)", fontsize=13, fontweight='bold', y=1.02, color='#ffffff')
 plt.tight_layout()
-plt.savefig("assets/sample_digits.png", dpi=200, bbox_inches='tight', facecolor='#0a0a0a')
 plt.savefig("docs/assets/sample_digits.png", dpi=200, bbox_inches='tight', facecolor='#0a0a0a')
 plt.close()
 
@@ -91,7 +89,6 @@ ax.set_ylim(10, 105)
 ax.legend(frameon=True, facecolor='#171717', edgecolor='#262626', loc='lower right', labelcolor='#ededed')
 ax.grid(True, linestyle=':', alpha=0.3, color='#404040')
 plt.tight_layout()
-plt.savefig("assets/pca_variance_curve.png", dpi=200, bbox_inches='tight', facecolor='#0a0a0a')
 plt.savefig("docs/assets/pca_variance_curve.png", dpi=200, bbox_inches='tight', facecolor='#0a0a0a')
 plt.close()
 
@@ -163,7 +160,6 @@ for rect in rects2:
                 textcoords="offset points", ha='center', va='bottom', fontsize=8.5, fontweight='bold', color='#ffffff')
 
 plt.tight_layout()
-plt.savefig("assets/accuracy_comparison.png", dpi=200, bbox_inches='tight', facecolor='#0a0a0a')
 plt.savefig("docs/assets/accuracy_comparison.png", dpi=200, bbox_inches='tight', facecolor='#0a0a0a')
 plt.close()
 
@@ -188,8 +184,7 @@ ax2.tick_params(colors='#a3a3a3')
 
 plt.suptitle("Confusion Matrix Heatmaps on 360 Test Samples", fontsize=13, fontweight='bold', y=1.02, color='#ffffff')
 plt.tight_layout()
-plt.savefig("assets/confusion_matrices.png", dpi=200, bbox_inches='tight', facecolor='#0a0a0a')
 plt.savefig("docs/assets/confusion_matrices.png", dpi=200, bbox_inches='tight', facecolor='#0a0a0a')
 plt.close()
 
-print(" Pure monochrome dark assets generated successfully!")
+print("Pure monochrome dark assets generated successfully in docs/assets/.")
