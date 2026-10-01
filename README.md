@@ -88,34 +88,7 @@ Evaluation on an unseen stratified 20% test set (360 samples):
 
 ---
 
-## 5. Viva / Mid-Sem Examination Q&A Guide
-
-Direct answers to the 7 core questions from **Section 8** of the case study syllabus:
-
-### Q1: Can handwritten digits be recognised from pixel values?
-> **Answer:** **Yes.** Pixel intensities represent spatial brightness values forming geometric stroke patterns. When treated as numerical feature vectors ($X \in \mathbb{R}^{64}$), classifiers construct linear and non-linear boundaries separating digit distributions with up to **97.50% accuracy**.
-
-### Q2: How many principal components retain ninety percent of the variance?
-> **Answer:** Exactly **31 principal components** out of 64 features retain **90.06%** of total variance, reducing the input dimensionality by **51.6%**.
-
-### Q3: Does PCA reduce accuracy, and by how much?
-> **Answer:** **Not universally.** While tree ensembles saw a slight drop (-1.39% to -1.95%) and Logistic Regression dipped by -2.50%, **KNN accuracy actually increased by +1.11% (from 96.39% to 97.50%)**. PCA filters out collinear background noise, mitigating the *curse of dimensionality* for Euclidean distance calculations.
-
-### Q4: How much training time does PCA save?
-> **Answer:** For KNN, test-time neighbor distance computation was **36.3% faster** with PCA. In larger benchmarks ($28 \times 28 = 784$ features like MNIST), PCA reduces dimensionality by ~88%, saving massive training and inference time.
-
-### Q5: Which digits are most frequently confused?
-> **Answer:** **Digit 8** is the most frequently confused (misclassified as **1** or **2**), followed by **Digit 9** (confused with **6** or **8**). In low $8 \times 8$ resolution, the loops of an 8 often degrade into a vertical bar that mimics a 1.
-
-### Q6: Which algorithm performs best after PCA?
-> **Answer:** **K-Nearest Neighbors (KNN with $k=5$)** with **97.50% Test Accuracy** and an **F1-Score of 0.9746**.
-
-### Q7: Can the model be deployed as a digit recognition application?
-> **Answer:** **Yes.** Deployed as a client-side web application on GitHub Pages featuring an interactive canvas, live 8×8 and PCA reconstruction previews, and real-time class probability distributions.
-
----
-
-## 6. How to Run Locally
+## 5. How to Run Locally
 
 ### Option A: Open Web App Directly
 Simply open `docs/index.html` in any web browser. Zero installation required!
@@ -137,15 +110,6 @@ Open `http://localhost:8000` in your browser.
    ```
 3. Run Experiments in Google Colab:
    Access and execute the complete interactive experiments in [Google Colab](https://colab.research.google.com/drive/1kTOeMzGCiN0HxwHrBNd3Xd0v0UyKECfm?usp=sharing).
-
----
-
-## 7. How to Enable GitHub Pages (Instant Live Link)
-1. Go to your repository settings on GitHub: `https://github.com/MSB-io/handwritten-digit-recognition/settings/pages`.
-2. Under **Build and deployment** -> **Source**, select **Deploy from a branch**.
-3. Under **Branch**, select `main` and **`/docs`**, then click **Save**.
-4. In 1-2 minutes, your live site will be active at:  
-   `https://msb-io.github.io/handwritten-digit-recognition/`
 
 ---
 
